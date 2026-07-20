@@ -1,0 +1,337 @@
+{
+  "source": "Public flight records + FAA mishap notices",
+  "updated": "2026-07-17",
+  "flights": [
+    {
+      "flight_number": 1,
+      "name": "Starship Flight Test 1",
+      "launch_date": "2023-04-20T13:33:09Z",
+      "booster": "B7",
+      "ship": "S24",
+      "block": 1,
+      "pad": "OLP-1",
+      "outcome": "FAILURE",
+      "booster_outcome": "PRECLUDED",
+      "ship_outcome": "PRECLUDED",
+      "milestones": [
+        "First integrated flight",
+        "Pad extensively damaged"
+      ],
+      "investigation": {
+        "opened": "2023-04-20",
+        "closed": "2023-09-08",
+        "days": 141,
+        "trigger": "pad damage and vehicle loss"
+      },
+      "attempts": 1,
+      "scrubs": 0,
+      "scrub_details": []
+    },
+    {
+      "flight_number": 2,
+      "name": "Starship Flight Test 2",
+      "launch_date": "2023-11-18T13:02:50Z",
+      "booster": "B9",
+      "ship": "S25",
+      "block": 1,
+      "pad": "OLP-1",
+      "outcome": "FAILURE",
+      "booster_outcome": "FAILURE",
+      "ship_outcome": "FAILURE",
+      "milestones": [
+        "Hot-staging debut",
+        "Water deluge system"
+      ],
+      "investigation": {
+        "opened": "2023-11-18",
+        "closed": "2024-02-26",
+        "days": 100,
+        "trigger": "booster and ship losses after hot-staging"
+      },
+      "attempts": 1,
+      "scrubs": 0,
+      "scrub_details": []
+    },
+    {
+      "flight_number": 3,
+      "name": "Starship Flight Test 3",
+      "launch_date": "2024-03-14T13:25:00Z",
+      "booster": "B10",
+      "ship": "S28",
+      "block": 1,
+      "pad": "OLP-1",
+      "outcome": "PARTIAL",
+      "booster_outcome": "FAILURE",
+      "ship_outcome": "FAILURE",
+      "milestones": [
+        "Ship reached space",
+        "Propellant transfer demo"
+      ],
+      "investigation": {
+        "opened": "2024-03-14",
+        "closed": "2024-05-17",
+        "days": 64,
+        "trigger": "booster and ship losses during landing / reentry"
+      },
+      "attempts": 1,
+      "scrubs": 0,
+      "scrub_details": []
+    },
+    {
+      "flight_number": 4,
+      "name": "Starship Flight Test 4",
+      "launch_date": "2024-06-06T12:50:00Z",
+      "booster": "B11",
+      "ship": "S29",
+      "block": 1,
+      "pad": "OLP-1",
+      "outcome": "SUCCESS",
+      "booster_outcome": "CONTROLLED",
+      "ship_outcome": "CONTROLLED",
+      "milestones": [
+        "First controlled ship reentry and splashdown"
+      ],
+      "investigation": null,
+      "attempts": 1,
+      "scrubs": 0,
+      "scrub_details": []
+    },
+    {
+      "flight_number": 5,
+      "name": "Starship Flight Test 5",
+      "launch_date": "2024-10-13T12:25:00Z",
+      "booster": "B12",
+      "ship": "S30",
+      "block": 1,
+      "pad": "OLP-1",
+      "outcome": "SUCCESS",
+      "booster_outcome": "CATCH",
+      "ship_outcome": "CONTROLLED",
+      "milestones": [
+        "First Super Heavy tower catch"
+      ],
+      "investigation": null,
+      "attempts": 1,
+      "scrubs": 0,
+      "scrub_details": []
+    },
+    {
+      "flight_number": 6,
+      "name": "Starship Flight Test 6",
+      "launch_date": "2024-11-19T22:00:00Z",
+      "booster": "B13",
+      "ship": "S31",
+      "block": 1,
+      "pad": "OLP-1",
+      "outcome": "SUCCESS",
+      "booster_outcome": "CONTROLLED",
+      "ship_outcome": "CONTROLLED",
+      "milestones": [
+        "In-space Raptor relight",
+        "Final Block 1 ship"
+      ],
+      "investigation": null,
+      "attempts": 1,
+      "scrubs": 0,
+      "scrub_details": []
+    },
+    {
+      "flight_number": 7,
+      "name": "Starship Flight Test 7",
+      "launch_date": "2025-01-16T22:37:00Z",
+      "booster": "B14",
+      "ship": "S33",
+      "block": 2,
+      "pad": "OLP-1",
+      "outcome": "FAILURE",
+      "booster_outcome": "CATCH",
+      "ship_outcome": "FAILURE",
+      "milestones": [
+        "First Block 2 ship",
+        "Booster catch retained"
+      ],
+      "investigation": {
+        "opened": "2025-01-17",
+        "closed": "2025-02-24",
+        "days": 38,
+        "trigger": "ship propellant leak and loss"
+      },
+      "attempts": 2,
+      "scrubs": 1,
+      "scrub_details": [
+        {
+          "date": "2025-01-13",
+          "klass": "short",
+          "delay_days": 3,
+          "reason": "Ground systems issue scrubbed Flight 7; recycled for Jan 16",
+          "previous_net_date": "2025-01-13T22:00:00Z",
+          "new_net_date": "2025-01-16T22:37:00Z"
+        }
+      ]
+    },
+    {
+      "flight_number": 8,
+      "name": "Starship Flight Test 8",
+      "launch_date": "2025-03-06T23:31:02Z",
+      "booster": "B15",
+      "ship": "S34",
+      "block": 2,
+      "pad": "OLP-1",
+      "outcome": "FAILURE",
+      "booster_outcome": "CATCH",
+      "ship_outcome": "FAILURE",
+      "milestones": [
+        "Second Block 2 ship loss"
+      ],
+      "investigation": {
+        "opened": "2025-03-07",
+        "closed": "2025-04-28",
+        "days": 52,
+        "trigger": "ship loss of control and telemetry"
+      },
+      "attempts": 2,
+      "scrubs": 1,
+      "scrub_details": [
+        {
+          "date": "2025-03-03",
+          "klass": "long",
+          "delay_days": 3,
+          "reason": "Vehicle issue delayed Flight 8 attempt before March 6 launch",
+          "previous_net_date": "2025-03-03T23:00:00Z",
+          "new_net_date": "2025-03-06T23:31:02Z"
+        }
+      ]
+    },
+    {
+      "flight_number": 9,
+      "name": "Starship Flight Test 9",
+      "launch_date": "2025-05-27T23:36:28Z",
+      "booster": "B14",
+      "ship": "S35",
+      "block": 2,
+      "pad": "OLP-1",
+      "outcome": "FAILURE",
+      "booster_outcome": "FAILURE",
+      "ship_outcome": "FAILURE",
+      "milestones": [
+        "First Super Heavy reflight"
+      ],
+      "investigation": {
+        "opened": "2025-05-28",
+        "closed": "2025-08-06",
+        "days": 70,
+        "trigger": "booster and ship losses"
+      },
+      "attempts": 2,
+      "scrubs": 1,
+      "scrub_details": [
+        {
+          "date": "2025-05-24",
+          "klass": "short",
+          "delay_days": 3,
+          "reason": "Weather / range scrub ahead of Flight 9",
+          "previous_net_date": "2025-05-24T23:00:00Z",
+          "new_net_date": "2025-05-27T23:36:28Z"
+        }
+      ]
+    },
+    {
+      "flight_number": 10,
+      "name": "Starship Flight Test 10",
+      "launch_date": "2025-08-26T23:30:00Z",
+      "booster": "B16",
+      "ship": "S37",
+      "block": 2,
+      "pad": "OLP-1",
+      "outcome": "SUCCESS",
+      "booster_outcome": "CONTROLLED",
+      "ship_outcome": "CONTROLLED",
+      "milestones": [
+        "First Starlink simulator deployment",
+        "In-space relight"
+      ],
+      "investigation": null,
+      "attempts": 1,
+      "scrubs": 0,
+      "scrub_details": []
+    },
+    {
+      "flight_number": 11,
+      "name": "Starship Flight Test 11",
+      "launch_date": "2025-10-13T23:23:00Z",
+      "booster": "B15",
+      "ship": "S38",
+      "block": 2,
+      "pad": "OLP-1",
+      "outcome": "SUCCESS",
+      "booster_outcome": "CONTROLLED",
+      "ship_outcome": "CONTROLLED",
+      "milestones": [
+        "Final Block 2 flight",
+        "Final Pad 1 flight before retrofit"
+      ],
+      "investigation": null,
+      "attempts": 1,
+      "scrubs": 0,
+      "scrub_details": []
+    },
+    {
+      "flight_number": 12,
+      "name": "Starship Flight Test 12",
+      "launch_date": "2026-05-22T22:30:00Z",
+      "booster": "B19",
+      "ship": "S39",
+      "block": 3,
+      "pad": "OLP-2",
+      "outcome": "PARTIAL",
+      "booster_outcome": "FAILURE",
+      "ship_outcome": "CONTROLLED",
+      "milestones": [
+        "First Block 3 / V3 flight",
+        "First Pad 2 launch",
+        "Ship soft splashdown"
+      ],
+      "investigation": {
+        "opened": "2026-05-27",
+        "closed": "2026-07-13",
+        "days": 47,
+        "trigger": "Super Heavy boostback / landing mishap (B19)"
+      },
+      "attempts": 1,
+      "scrubs": 0,
+      "scrub_details": []
+    },
+    {
+      "flight_number": 13,
+      "name": "Starship Flight Test 13",
+      "launch_date": null,
+      "net_date": "2026-07-16T22:45:00Z",
+      "booster": "B20",
+      "ship": "S40",
+      "block": 3,
+      "pad": "OLP-2",
+      "outcome": null,
+      "booster_outcome": null,
+      "ship_outcome": null,
+      "milestones": [
+        "Second V3 flight",
+        "Functional Starlink V3 payloads planned",
+        "Raptor relight planned"
+      ],
+      "investigation": null,
+      "status_hint": "GO",
+      "attempts": 2,
+      "scrubs": 1,
+      "scrub_details": [
+        {
+          "date": "2026-07-16",
+          "klass": "long",
+          "delay_days": 4,
+          "reason": "Engine-start abort / pad abort on Flight 13 attempt; NET slipped",
+          "previous_net_date": "2026-07-16T22:45:00Z",
+          "new_net_date": "2026-07-20T22:00:00Z"
+        }
+      ]
+    }
+  ]
+}

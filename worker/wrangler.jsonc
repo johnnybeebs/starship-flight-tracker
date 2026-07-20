@@ -1,0 +1,66 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "starship-flight-tracker",
+  "main": "src/index.ts",
+  "compatibility_date": "2026-07-01",
+
+  // React SPA build served as static assets; /api/* always hits the Worker.
+  "assets": {
+    "directory": "../web/dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "starship-tracker",
+      "database_id": "2e7ad3b7-dc80-4827-bda9-fbd2209a7d0b",
+      "migrations_dir": "migrations"
+    }
+  ],
+
+  "kv_namespaces": [
+    {
+      "binding": "CACHE",
+      "id": "da0510a5697e41e9af57decd78763905"
+    }
+  ],
+
+  // Hourly tick; the scheduled handler decides whether a poll is actually due
+  // (idle: daily at POLL_IDLE_HOUR_LOCAL; near-launch: every tick).
+  "triggers": {
+    "crons": ["0 * * * *"]
+  },
+
+  "routes": [
+    { "pattern": "starship-flight-tracker.com", "custom_domain": true },
+    { "pattern": "www.starship-flight-tracker.com", "custom_domain": true }
+  ],
+
+  "vars": {
+    "ANTHROPIC_MODEL": "claude-sonnet-5",
+    "POLL_IDLE_HOUR_LOCAL": "8",
+    "POLL_IDLE_TZ": "America/Denver",
+    "POLL_INTERVAL_IDLE_S": "86400",
+    "POLL_INTERVAL_NEAR_LAUNCH_S": "3600",
+    "NEAR_LAUNCH_HORIZON_H": "24",
+    "POST_WINDOW_HOT_H": "24",
+    "LLM_EXTRACT_BATCH_LIMIT": "20",
+    // 150 sims targets ~3–5 ms in V8 — must leave headroom under the free-tier
+    // 10 ms CPU cap (setup alone is ~2 ms; 500 sims was flirting with the limit).
+    "CADENCE_N_SIMS": "150",
+    "CADENCE_SEED": "42",
+    "CADENCE_HORIZON": "2026-12-31"
+  },
+
+  "observability": {
+    "enabled": true
+  }
+
+  // Secrets (set via `wrangler secret put`):
+  //   ANTHROPIC_API_KEY  — optional, LLM signal extraction (heuristics otherwise)
+  //   LL2_API_KEY        — optional, raises Launch Library 2 rate limits
+  //   ADMIN_TOKEN        — required for POST /api/refresh (X-Admin-Token header)
+}

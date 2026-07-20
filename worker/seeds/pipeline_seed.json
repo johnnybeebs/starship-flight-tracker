@@ -1,0 +1,112 @@
+{
+  "updated": "2026-07-19",
+  "sources": [
+    "Gwynne Shotwell interview Jun 2026: ~one Starship launch per month after successful tests; manufacturing ~1 rocket/month aiming toward higher rate",
+    "NSF / Starbase tracking: Ship 41 stacking / final assembly; Booster 21 stacked for Flight 14; Ship 42 in production; Booster 22 stacking underway",
+    "Public Flight 13 NET / B20 static fire reporting; OLP-1 retrofit for V3 / dual-pad ops",
+    "NSF 2026-07-03: Starship Florida / LC-39A pushing for launch this year — deluge tests, chopsticks reeved; B22/S42 could stack at Cape later in 2026 if F13–F14 succeed"
+  ],
+  "goal": {
+    "launches_per_month": 1.0,
+    "target_gap_days": 30,
+    "statement": "One Starship launch per month for the rest of 2026 after Flight 13, subject to test success and FAA clearance",
+    "manufacturing_rate_rockets_per_month": 1.0,
+    "_manufacturing_rate_note": "Stated Shotwell goal only; cadence floor uses empirical ship-completion gaps"
+  },
+  "pads": {
+    "OLP-2": {
+      "status": "operational",
+      "available_after": null,
+      "site": "starbase",
+      "notes": "Primary V3 pad (Pad B); hosts F12+ until OLP-1 returns"
+    },
+    "OLP-1": {
+      "status": "retrofit",
+      "available_after": "2026-10-01",
+      "site": "starbase",
+      "notes": "Pad A retrofit for V3 / dual-pad cadence; earliest dual-pad ops ~Q4 2026"
+    },
+    "LC-39A": {
+      "status": "commissioning",
+      "available_after": "2026-11-15",
+      "site": "florida",
+      "notes": "Kennedy LC-39A Starship pad; NSF Jul 2026 — deluge/chopstick progress, ~few months to operational; first Cape flight projection only (does not move Starbase cadence)"
+    }
+  },
+  "vehicles": [
+    {
+      "flight_number": 13,
+      "booster": "B20",
+      "ship": "S40",
+      "block": 3,
+      "pad": "OLP-2",
+      "readiness": "static_fire_complete",
+      "earliest_ready": "2026-07-10",
+      "risk_flags": [],
+      "notes": "B20 33-engine static fire complete; Ship 40 tested; NET mid-July"
+    },
+    {
+      "flight_number": 14,
+      "booster": "B21",
+      "ship": "S41",
+      "block": 3,
+      "pad": "OLP-2",
+      "readiness": "ship_stacked",
+      "earliest_ready": "2026-08-15",
+      "risk_flags": ["first_catch"],
+      "notes": "S41 reported fully stacked / final assembly; B21 stacked — first V3 booster catch attempt widely expected"
+    },
+    {
+      "flight_number": 15,
+      "booster": "B22",
+      "ship": "S42",
+      "block": 3,
+      "pad": "OLP-2",
+      "readiness": "in_production",
+      "earliest_ready": "2026-09-15",
+      "risk_flags": [],
+      "notes": "S42 in production (NSF); B22 stacking underway — booster assignment still unconfirmed if catch reuse changes pairings"
+    },
+    {
+      "flight_number": 16,
+      "booster": null,
+      "ship": null,
+      "block": 3,
+      "pad": "OLP-2",
+      "readiness": "in_production",
+      "earliest_ready": "2026-10-15",
+      "risk_flags": [],
+      "notes": "Pipeline placeholder from manufacturing rate; may shift to OLP-1 once retrofit completes"
+    },
+    {
+      "flight_number": 17,
+      "booster": null,
+      "ship": null,
+      "block": 3,
+      "pad": null,
+      "readiness": "in_production",
+      "earliest_ready": "2026-11-15",
+      "risk_flags": [],
+      "notes": "Pipeline placeholder; dual-pad era if OLP-1 online"
+    },
+    {
+      "flight_number": 18,
+      "booster": null,
+      "ship": null,
+      "block": 3,
+      "pad": null,
+      "readiness": "in_production",
+      "earliest_ready": "2026-12-15",
+      "risk_flags": [],
+      "notes": "Pipeline placeholder from manufacturing rate"
+    }
+  ],
+  "readiness_lead_days": {
+    "announced": 60,
+    "in_production": 45,
+    "ship_stacked": 28,
+    "cryo_complete": 18,
+    "static_fire_complete": 7,
+    "pad_ready": 3
+  }
+}

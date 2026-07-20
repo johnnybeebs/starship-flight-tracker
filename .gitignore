@@ -1,0 +1,27 @@
+# Dependencies
+node_modules/
+
+# Builds
+web/dist/
+worker/dist/
+
+# Wrangler local state
+.wrangler/
+worker/.wrangler/
+
+# Secrets — never commit
+.env
+.env.*
+.dev.vars
+.dev.vars.*
+worker/.dev.vars
+
+# Local data / migration dumps
+*.db
+*.sqlite
+scripts/*.sql
+scripts/d1_data.sql
+scripts/cadence_bootstrap.json
+
+# OS / editor
+.DS_Store
