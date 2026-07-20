@@ -209,9 +209,10 @@ export async function syncLl2ToDb(
     }
   }
 
-  // Rate budget (free LL2 tier is 15 req/hr)
+  // Rate budget (free LL2 tier is 15 req/hr). Force bypasses freshness above
+  // but never the hourly budget — admin refresh must not burn LL2 either.
   const log = await loadBudgetLog(db);
-  if (!opts.force && log.length >= BUDGET_LIMIT) {
+  if (log.length >= BUDGET_LIMIT) {
     return { skipped: true, reason: "budget_exhausted", budget_remaining: 0 };
   }
 

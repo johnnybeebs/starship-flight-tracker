@@ -14,9 +14,15 @@ import {
 } from "./db";
 import { budgetRemaining } from "./ll2";
 import { nearLaunch, runPollCycle } from "./poll";
+import { clientIp, consumeRateLimit, peekRateLimit } from "./rateLimit";
 import { buildFlightStatus, buildFlightStatuses } from "./statusEngine";
 import type { Env, PipelineVehicle } from "./types";
 import { getSettings } from "./types";
+
+/** Successful admin refreshes per rolling hour (quota / Anthropic / SNAPI). */
+const REFRESH_MAX_PER_HOUR = 6;
+/** Failed auth attempts per IP per rolling hour (slows token guessing). */
+const AUTH_FAIL_MAX_PER_HOUR = 30;
 
 function json(data: unknown, status = 200): Response {
   return new Response(JSON.stringify(data), {
@@ -213,15 +219,43 @@ async function refresh(env: Env, request: Request, url: URL): Promise<Response> 
   if (!adminToken) {
     return error(503, "Refresh disabled: ADMIN_TOKEN secret is not configured");
   }
+
+  const ip = clientIp(request);
+  const failKey = `rl:refresh:fail:${ip}`;
+  const failPeek = await peekRateLimit(env.CACHE, failKey, AUTH_FAIL_MAX_PER_HOUR);
+  if (!failPeek.ok) {
+    return rateLimited(failPeek.retryAfterS);
+  }
+
   const provided = request.headers.get("X-Admin-Token") ?? "";
   if (!timingSafeEqualStr(provided, adminToken)) {
+    await consumeRateLimit(env.CACHE, failKey, AUTH_FAIL_MAX_PER_HOUR);
     return error(403, "Invalid admin token");
   }
+
+  const okGate = await consumeRateLimit(env.CACHE, "rl:refresh:ok", REFRESH_MAX_PER_HOUR);
+  if (!okGate.ok) {
+    return rateLimited(okGate.retryAfterS);
+  }
+
+  // Expensive paths are opt-in (defaults off). LL2 still respects the hourly budget.
   const forceLl2 = url.searchParams.get("force_ll2") === "true";
-  const forceExtractRaw = url.searchParams.get("force_extract");
-  const forceExtract = forceExtractRaw === null ? true : forceExtractRaw === "true";
+  const forceExtract = url.searchParams.get("force_extract") === "true";
   const result = await runPollCycle(env, { forceLl2, forceExtract });
-  return json(result);
+  return json({
+    ...result,
+    refresh_remaining: okGate.remaining,
+  });
+}
+
+function rateLimited(retryAfterS: number): Response {
+  return new Response(JSON.stringify({ detail: "Rate limit exceeded. Try again later." }), {
+    status: 429,
+    headers: {
+      "content-type": "application/json; charset=utf-8",
+      "retry-after": String(retryAfterS),
+    },
+  });
 }
 
 function timingSafeEqualStr(a: string, b: string): boolean {
@@ -253,6 +287,6 @@ export async function handleApi(request: Request, env: Env): Promise<Response> {
     return error(404, "Not found");
   } catch (exc) {
     console.error("API error:", exc);
-    return error(500, `Internal error: ${exc instanceof Error ? exc.message : String(exc)}`);
+    return error(500, "Internal server error");
   }
 }

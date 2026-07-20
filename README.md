@@ -47,9 +47,12 @@ ADMIN_TOKEN=dev-token
 Force a poll cycle:
 
 ```bash
-curl -X POST 'http://127.0.0.1:8788/api/refresh?force_ll2=true' \
+curl -X POST 'http://127.0.0.1:8788/api/refresh?force_ll2=true&force_extract=true' \
   -H "X-Admin-Token: $ADMIN_TOKEN"
 ```
+
+(`force_ll2` / `force_extract` are opt-in. Live refreshes are capped at **6/hour**;
+bad tokens at **30/IP/hour**. LL2 budget still applies with `force_ll2`.)
 
 ## Production deploy
 
@@ -75,9 +78,14 @@ Live force-refresh:
 
 ```bash
 TOKEN=$(cat ~/.starship_admin_token)
-curl -sS -X POST 'https://starship-flight-tracker.com/api/refresh?force_ll2=true' \
+curl -sS -X POST 'https://starship-flight-tracker.com/api/refresh?force_ll2=true&force_extract=true' \
   -H "X-Admin-Token: $TOKEN"
 ```
+
+- **6** successful refreshes / rolling hour (global)
+- **30** failed auth attempts / IP / rolling hour → `429`
+- LL2 hourly budget still applies even with `force_ll2=true`
+- Public API `500` responses return a generic message (details only in Worker logs)
 
 ### One-time resource setup (already done for this project)
 
