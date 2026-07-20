@@ -1,6 +1,90 @@
-import { Suspense, lazy, useCallback, useEffect, useMemo, useState } from "react";
+import { Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const CadencePanel = lazy(() => import("./CadencePanel.jsx"));
+
+function AboutInfo({ nSims }) {
+  const dialogRef = useRef(null);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const el = dialogRef.current;
+    if (!el) return;
+    if (open) {
+      if (!el.open) el.showModal();
+    } else if (el.open) {
+      el.close();
+    }
+  }, [open]);
+
+  return (
+    <>
+      <button
+        type="button"
+        className="info-btn"
+        aria-label="About this project"
+        title="About this project"
+        onClick={() => setOpen(true)}
+      >
+        <span aria-hidden="true">i</span>
+      </button>
+      <dialog
+        ref={dialogRef}
+        className="info-dialog"
+        onClose={() => setOpen(false)}
+        onClick={(e) => {
+          if (e.target === dialogRef.current) setOpen(false);
+        }}
+      >
+        <div className="info-dialog-body">
+          <div className="info-dialog-head">
+            <h2>About Starship Flight Tracker</h2>
+            <button type="button" className="info-dialog-close" onClick={() => setOpen(false)}>
+              Close
+            </button>
+          </div>
+          <p>
+            An independent dashboard that tracks SpaceX Starship integrated flight tests and
+            projects how the rest of the year may unfold.
+          </p>
+          <p>
+            <strong>Live data.</strong> Flight NET dates and statuses come from{" "}
+            <a href="https://ll.thespacedevs.com/" target="_blank" rel="noreferrer">
+              Launch Library 2
+            </a>
+            . Related news is pulled from the{" "}
+            <a href="https://api.spaceflightnewsapi.net/" target="_blank" rel="noreferrer">
+              Spaceflight News API
+            </a>
+            , with signals (NET slips, FAA actions, scrubs, readiness) extracted from article
+            titles and summaries.
+          </p>
+          <p>
+            <strong>Per-flight status.</strong> Each flight is placed on a simple state machine
+            (announced → testing → regulatory hold / go → flown → investigation → closed) using
+            seed history, LL2, and those news signals.
+          </p>
+          <p>
+            <strong>Cadence projection (Monte Carlo).</strong> The chart and “upcoming flight
+            windows” are a probabilistic forecast through the end of the horizon year. The model
+            runs about {nSims ?? 150} simulated timelines that blend:
+          </p>
+          <ul>
+            <li>recent inter-flight gaps (with long mishap outliers capped)</li>
+            <li>stated cadence goals and how often those goals have been met historically</li>
+            <li>published NET anchors and slip velocity</li>
+            <li>hardware / manufacturing readiness floors from the vehicle pipeline</li>
+            <li>scrub / recycle delays and mishap → investigation holds</li>
+          </ul>
+          <p>
+            For each future flight you’ll see median (P50) dates plus a P10–P90 band — not a
+            single guaranteed date. The year-outlook card shows the most common simulated finish
+            count for the calendar year. Projections refresh when upstream inputs change.
+          </p>
+        </div>
+      </dialog>
+    </>
+  );
+}
 
 async function getJson(path, opts) {
   const res = await fetch(path, opts);
@@ -203,6 +287,7 @@ export default function App() {
       <header className="top">
         <div className="top-bar">
           <h1>Starship Flight Tracker</h1>
+          <AboutInfo nSims={cadence?.n_sims} />
         </div>
         <p className="top-sub">{syncNote}</p>
       </header>
